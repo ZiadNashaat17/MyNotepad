@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import java.util.Calendar
 
-@Parcelize
 @Entity(tableName = "NOTES_TABLE")
 data class Note(
     @PrimaryKey(autoGenerate = true)
@@ -14,4 +13,4 @@ data class Note(
     val title: String,
     val content: String,
     val date: String
-):Parcelable
+)

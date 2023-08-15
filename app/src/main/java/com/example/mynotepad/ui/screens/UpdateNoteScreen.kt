@@ -1,5 +1,6 @@
 package com.example.mynotepad.ui.screens
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.border
@@ -22,6 +23,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,9 +46,19 @@ fun UpdateNoteScreen(
     viewModel: HomeViewModel,
     onBackClick: () -> Unit
 ) {
-    val note = viewModel.getSelectedNote(noteID)
-    var updatedTitle by remember { mutableStateOf(note.title) }
-    var updatedContent by remember { mutableStateOf(note.content) }
+
+    var note by remember { mutableStateOf(Note(0, "", "", "")) }
+    var updatedTitle by remember { mutableStateOf("") }
+    var updatedContent by remember { mutableStateOf("") }
+
+    LaunchedEffect(key1 = Unit) {
+        Log.d("Launched", "$note")
+        note = viewModel.getSelectedNote(noteID)
+        updatedTitle = note.title
+        updatedContent = note.content
+    }
+
+
     var showDeleteDialog by remember { mutableStateOf(false) }
     Scaffold(topBar = {
         TopAppBar(title = {
@@ -171,7 +183,7 @@ fun UpdateNoteScreen(
 }
 
 @Composable
-fun DeleteNoteDialog(note: Note, onConfirmClick: (Note?) -> Unit) {
+fun DeleteNoteDialog(note: Note, onConfirmClick: (note: Note?) -> Unit) {
     AlertDialog(
         onDismissRequest = { },
         confirmButton = {

@@ -48,12 +48,12 @@ import com.example.mynotepad.viewmodel.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController, viewModel: HomeViewModel) {
+    viewModel.getAllNotes()
     Scaffold(
         topBar = { MainTopBar(navController) },
         floatingActionButton = { AddNoteButton(navController = navController) }
     ) {
         LazyColumn(modifier = Modifier.padding(it), contentPadding = PaddingValues(15.dp)) {
-            viewModel.getAllNotes()
             if (viewModel.notes.isEmpty()) {
                 item {
                     Text(

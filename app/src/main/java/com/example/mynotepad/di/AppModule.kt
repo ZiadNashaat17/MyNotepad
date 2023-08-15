@@ -24,6 +24,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAppModule(noteDatabase: NoteDatabase): NoteDao = noteDatabase.noteDao()
+    fun provideAppDao(noteDatabase: NoteDatabase): NoteDao = noteDatabase.noteDao()
 
 }

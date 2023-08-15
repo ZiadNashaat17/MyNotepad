@@ -36,6 +36,14 @@ interface NoteDao {
     @Query("SELECT * FROM NOTES_TABLE ORDER BY title DESC")
     fun retrieveAlphabeticalDescending(): List<Note>
 
+    @Query("SELECT * FROM NOTES_TABLE ORDER BY ID LIMIT 1")
+    fun retrieveFirst(): List<Note>
+
+    @Query("SELECT * FROM NOTES_TABLE ORDER BY ID DESC LIMIT 1")
+    fun retrieveLast(): List<Note>
+
+
+
 //    @Query("SELECT * FROM NOTES_TABLE ORDER BY date")
 //    fun retrieveWithDateAscending()
 //

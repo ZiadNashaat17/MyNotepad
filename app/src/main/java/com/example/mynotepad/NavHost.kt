@@ -8,7 +8,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.mynotepad.room.Note
 import com.example.mynotepad.ui.screens.AddNoteScreen
 import com.example.mynotepad.ui.screens.MainScreen
 import com.example.mynotepad.ui.screens.SearchScreen
@@ -28,16 +27,23 @@ fun NavHost(viewModel: HomeViewModel) {
         }
 
         composable(Dest.ADD_NOTE_SCREEN.value) {
-            AddNoteScreen(navController = navController, viewModel = viewModel){
+            AddNoteScreen(navController = navController, viewModel = viewModel) {
                 viewModel.getAllNotes()
             }
         }
         composable(
-            "${Dest.UPDATE_NOTE_SCREEN.value}/{note_id}", arguments = listOf(
-                navArgument("note_id") { type = NavType.IntType })
+            "${Dest.UPDATE_NOTE_SCREEN.value}/{note_id}",
+            arguments = listOf(
+                navArgument("note_id") { type = NavType.IntType }
+            )
         ) {
             val id = it.arguments?.getInt("note_id") ?: 0
-            UpdateNoteScreen(navController = navController, noteID = id, viewModel = viewModel) {
+
+            UpdateNoteScreen(
+                navController = navController,
+                noteID = id,
+                viewModel = viewModel
+            ) {
                 viewModel.getAllNotes()
             }
         }
