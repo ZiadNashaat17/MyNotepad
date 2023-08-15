@@ -1,51 +1,49 @@
 package com.example.mynotepad.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+
 import androidx.lifecycle.ViewModel
+import com.example.mynotepad.NoteRepository
 import com.example.mynotepad.room.Note
-import com.example.mynotepad.room.NoteDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val dao: NoteDao) : ViewModel() {
-    var notes by mutableStateOf(emptyList<Note>())
+class HomeViewModel @Inject constructor(private val noteRepository: NoteRepository) : ViewModel() {
+    var notes: List<Note> = mutableListOf()
 
     fun insertNote(note: Note) {
-        dao.insert(note)
+        noteRepository.insertNote(note)
     }
 
     fun getAllNotes() {
-        notes = dao.retrieveAll()
+        notes = noteRepository.getAllNotes()
     }
 
     fun getSelectedNote(id: Int): Note {
-        return dao.retrieveSelected(id)
+        return noteRepository.getSelectedNote(id)
     }
 
     fun deleteSelectedNote(note: Note) {
-        dao.delete(note)
+        noteRepository.deleteSelectedNote(note)
     }
 
     fun updateSelectedNote(note: Note) {
-        dao.update(note)
+        noteRepository.updateSelectedNote(note)
     }
 
     fun getStartingWith(firstChars: String) {
-        notes = dao.retrieveStartingWith(firstChars)
+        notes = noteRepository.getStartingWith(firstChars)
     }
 
     fun sortDesc() {
-        notes = dao.retrieveDesc()
+        notes = noteRepository.sortDesc()
     }
 
     fun sortAlphabeticallyAscending() {
-        notes = dao.retrieveAlphabeticalAscending()
+        notes = noteRepository.sortAlphabeticallyAscending()
     }
 
     fun sortAlphabeticallyDescending() {
-        notes = dao.retrieveAlphabeticalDescending()
+        notes = noteRepository.sortAlphabeticallyDescending()
     }
 }

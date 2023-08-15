@@ -32,7 +32,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyNotepadTheme {
-                // A surface container using the 'background' color from the theme
                 NavHost(viewModel = viewModel)
             }
         }
